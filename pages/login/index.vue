@@ -1,9 +1,9 @@
 <template>
-  <div>All Paginations</div>
+  <div>Login</div>
 </template>
 
 <script>
 export default {
-  name: 'Paginations',
+  name: 'Login',
 }
 </script>
