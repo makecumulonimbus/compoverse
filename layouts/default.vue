@@ -57,18 +57,18 @@ export default {
           to: '/',
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-button-pointer',
           title: 'Buttons',
           to: '/buttons',
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-card-text ',
           title: 'Cards',
           to: '/cards',
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Pagination',
+          icon: 'mdi-page-last',
+          title: 'Paginations',
           to: '/paginations',
         },
       ],
@@ -82,10 +82,5 @@ export default {
 </script>
 
 <style scoped>
-.v-main {
-    background-image: url(/background/bg-signin.svg);
-    height: 100%;
-    width: 100%;
-    background-repeat: repeat;
-}
+
 </style>

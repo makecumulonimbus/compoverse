@@ -1,0 +1,22 @@
+.v-main {
+  background-color: $color-5;
+}
+.v-card {
+  background-color: #fafafa;
+  box-shadow: $box-shadow;
+}
+.v-app-bar.v-toolbar.v-sheet {
+  background-color: $color-2 !important;
+}
+.v-navigation-drawer__content {
+  background: $color-4 !important;
+}
+body {
+  height: 100vh;
+}
+.container {
+    color: $color-4 !important;
+}
+.color-white {
+  color: #fafafa;
+}
