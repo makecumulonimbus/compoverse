@@ -25,14 +25,50 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
-      
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
 
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer />
-      
+      <v-menu offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <v-avatar size="36px">
+              <v-img
+                alt="Avatar"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa0mY04NeynM9jLwuxyuvaqyjfwHeBJkPsEwxUO-junn3ptTn8MyFPeTVpa5sppoAu758&usqp=CAU"
+              ></v-img>
+            </v-avatar>
+          </v-btn>
+        </template>
+        <v-card>
+          <v-card-text>
+            <div class="mx-auto text-center">
+              <v-avatar>
+                <v-img
+                  alt="Avatar"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa0mY04NeynM9jLwuxyuvaqyjfwHeBJkPsEwxUO-junn3ptTn8MyFPeTVpa5sppoAu758&usqp=CAU"
+                ></v-img>
+              </v-avatar>
+              <h3 class="pt-3">Nuttapong.y</h3>
+              <p class="text-caption mt-1">Caption.</p>
+              <v-divider class="my-2"></v-divider>
+              <v-btn depressed rounded text  small> Edit Account </v-btn>
+              <v-divider class="my-2"></v-divider>
+              <v-btn
+                depressed
+                rounded
+                text
+                small
+                @click="$router.replace('/signin')"
+              >
+                SIGN OUT
+              </v-btn>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-menu>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -73,14 +109,14 @@ export default {
         },
       ],
       miniVariant: true,
-      right: true,
-      rightDrawer: false,
       title: 'Compoverse',
     }
   },
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.v-card{
+  background-color: $color-4;
+}
 </style>

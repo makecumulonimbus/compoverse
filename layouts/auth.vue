@@ -1,6 +1,6 @@
 <template>
-  <v-main>
-    <v-container>
+  <v-main class="bg-auth">
+    <v-container class="pa-0">
       <Nuxt />
     </v-container>
   </v-main>
@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style scoped>
-/* .v-main {
+/* .bg-auth{
     background-image: url(/background/bg-signin.svg);
     height: 100%;
     width: 100%;
