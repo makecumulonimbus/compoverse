@@ -14,8 +14,10 @@
 .v-navigation-drawer__content {
   background: $color-4 !important;
 }
+.v-application,
 body {
   height: 100vh;
+  font-family: 'IBM Plex Sans Thai Looped', sans-serif !important;
 }
 .container {
     color: $color-4 !important;

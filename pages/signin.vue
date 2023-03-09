@@ -1,19 +1,19 @@
 <template>
   <div class="signin-container">
     <v-card class="card-signIn" :elevation="0">
-      <div>
-        <v-text-field  placeholder="Email" solo></v-text-field>
+      <div class="input-signin">
+        <v-text-field placeholder="Email" solo type="email" label="Email"></v-text-field>
         <v-text-field
           label="Password"
           placeholder="Password"
           type="password"
-          
           solo
-
         ></v-text-field>
       </div>
-      <div>
-        <v-btn @click="$router.replace('/')">SIGN IN</v-btn>
+      <div class="btn-signin">
+        <v-btn @click="$router.replace('/')" rounded color="#40b388" light
+          >SIGN IN</v-btn
+        >
       </div>
     </v-card>
   </div>
@@ -39,10 +39,23 @@ export default {
   width: 100%;
   max-height: 400px;
   max-width: 400px;
-  background-color: $color-2 !important;
+  background-color: $color-5 !important;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+.btn-signin {
+  width: 100%;
+  button {
+    width: 100%;
+    span {
+      color: white;
+      letter-spacing: 0;
+    }
+  }
+}
+.input-signin{
+   width: 100%;
 }
 </style>
