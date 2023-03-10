@@ -6,7 +6,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - compoverse',
+    titleTemplate: '',
     title: 'compoverse',
     htmlAttrs: {
       lang: 'en',
@@ -29,7 +29,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['./assets/default.scss'],
+  css: ['@/assets/default.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -55,9 +55,9 @@ export default {
       dark: true,
       themes: {
         dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
+          primary: '#40b388',
+          accent: '#1e1f33',
+          secondary: '#6f7e91',
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
@@ -69,4 +69,9 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  server: {
+    // host: "0.0.0.0"
+    port: '4000',
+  },
 }

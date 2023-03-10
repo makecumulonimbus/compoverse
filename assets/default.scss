@@ -1,4 +1,4 @@
-.pa-0{
+.pa-0 {
   padding: 0 !important;
 }
 .v-main {
@@ -20,8 +20,21 @@ body {
   font-family: 'IBM Plex Sans Thai Looped', sans-serif !important;
 }
 .container {
-    color: $color-4 !important;
+  color: $color-4 !important;
 }
 .color-white {
   color: #fafafa;
+}
+
+.input-bg .v-input__slot {
+  background: $color-1 !important;
+  // border: 1px solid;
+  // border-color: $color-2;
+  box-shadow: unset !important;
+  // input {
+  //   color: $color-4 !important;
+  // }
+}
+.v-messages {
+  color: $color-gray !important;
 }
