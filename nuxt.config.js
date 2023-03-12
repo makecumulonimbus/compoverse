@@ -46,7 +46,25 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: [
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: 'AIzaSyCw92w8YPUlb3iSKH-xfBlhwyD3S5jWlkY',
+          authDomain: 'compo-verse.firebaseapp.com',
+          projectId: 'compo-verse',
+          storageBucket: 'compo-verse.appspot.com',
+          messagingSenderId: '28855858205',
+          appId: '1:28855858205:web:841ada8c9dd0492fc582f4',
+        },
+        services: {
+          auth: true, // Just as example. Can be any other service.\
+          firestore: true,
+        },
+      },
+    ],
+  ],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -60,7 +78,7 @@ export default {
           secondary: '#6f7e91',
           info: colors.teal.lighten1,
           warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
+          error: '#f1552e',
           success: colors.green.accent3,
         },
       },
