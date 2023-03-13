@@ -1,7 +1,7 @@
 <template>
   <div class="signin-container">
     <div class="d-flex align-center justify-center w-100">
-      <c-card class="card-signIn-left" :elevation="0">
+      <v-card class="card-signIn-left" :elevation="0">
         <div class="logo-text">C</div>
         <div class="logo-text">O</div>
         <div class="logo-text">M</div>
@@ -12,46 +12,52 @@
         <div class="logo-text">R</div>
         <div class="logo-text">S</div>
         <div class="logo-text">E</div>
-      </c-card>
+      </v-card>
       <v-card class="card-signIn" :elevation="0">
         <div>
           <img src="logo.png" width="200" class="img-logo" />
         </div>
-        <div class="input-signin">
-          <v-text-field
-            placeholder="Email"
-            solo
-            type="email"
-            class="input-bg"
-            v-model="email"
-            prepend-inner-icon="mdi-email"
-            :rules="[rules.required, rules.email]"
-          ></v-text-field>
-          <v-text-field
-            placeholder="Password"
-            solo
-            class="input-bg"
-            prepend-inner-icon="mdi-key"
-            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.min]"
-            :type="show1 ? 'text' : 'password'"
-            @click:append="show1 = !show1"
-          ></v-text-field>
-        </div>
-        <div class="btn-signin">
-          <v-btn @click="submit" large color="#40b388" dark rounded
-            >SIGN IN</v-btn
-          >
-        </div>
+        <form @submit.prevent="signIn" ref="form">
+          <div class="input-signin">
+            <v-text-field
+              placeholder="Email"
+              solo
+              type="email"
+              class="input-bg"
+              v-model="email"
+              prepend-inner-icon="mdi-email"
+              :rules="[rules.required, rules.email]"
+            ></v-text-field>
+            <v-text-field
+              v-model="password"
+              placeholder="Password"
+              solo
+              class="input-bg"
+              prepend-inner-icon="mdi-key"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[rules.required, rules.min]"
+              :type="show1 ? 'text' : 'password'"
+              @click:append="show1 = !show1"
+            ></v-text-field>
+          </div>
+          <div class="btn-signin">
+            <v-btn type="submit" large color="#40b388" dark rounded
+              >SIGN IN</v-btn
+            >
+          </div>
+        </form>
       </v-card>
     </div>
   </div>
 </template>
 
 <script>
+const pattern =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 export default {
   name: 'SignIn',
   layout: 'auth',
+  middleeware: 'isLoggedIn',
   data() {
     return {
       email: '',
@@ -61,8 +67,6 @@ export default {
         required: (value) => !!value || 'Required',
         min: (v) => v?.length >= 8 || 'Min 8 characters',
         email: (value) => {
-          const pattern =
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           return pattern.test(value) || 'Invalid e-mail'
         },
       },
@@ -70,7 +74,31 @@ export default {
   },
 
   methods: {
-    submit() {},
+    async signIn() {
+      if (this.email === '' || !pattern.test(this.email)) return
+      if (this.password === '' || this.password.length < 8) return
+
+      try {
+        const data = await this.$fire.auth.signInWithEmailAndPassword(
+          this.email,
+          this.password
+        )
+
+        if (data.user) {
+          const userProfile = {
+            email: data.user.email,
+            uid: data.user.uid,
+            photoURL: data.user.photoURL,
+            displayName: data.user.displayName,
+            phoneNumber: data.user.phoneNumber,
+          }
+          console.log(userProfile)
+          this.$router.push('/')
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
   },
 }
 </script>
@@ -96,8 +124,8 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
   text-align: center;
 }
 .card-signIn {

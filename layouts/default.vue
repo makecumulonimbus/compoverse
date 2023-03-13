@@ -1,5 +1,5 @@
 <template>
-  <v-app >
+  <v-app>
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
@@ -54,15 +54,9 @@
               <h3 class="pt-3">Nuttapong.y</h3>
               <p class="text-caption mt-1">Caption.</p>
               <v-divider class="my-2"></v-divider>
-              <v-btn depressed rounded text  small> Edit Account </v-btn>
+              <v-btn depressed rounded text small> Edit Account </v-btn>
               <v-divider class="my-2"></v-divider>
-              <v-btn
-                depressed
-                rounded
-                text
-                small
-                @click="$router.replace('/signin')"
-              >
+              <v-btn depressed rounded text small @click="signOut()">
                 SIGN OUT
               </v-btn>
             </div>
@@ -112,11 +106,26 @@ export default {
       title: 'Compoverse',
     }
   },
+
+  methods: {
+    async signOut() {
+      if (this.$fire.auth.currentUser !== null) {
+        console.log(this.$fire.auth.currentUser)
+        try {
+          await this.$fire.auth.signOut().then(() => {
+            this.$router.replace('/signin')
+          })
+        } catch (e) {
+          console.log(e)
+        }
+      }
+    },
+  },
 }
 </script>
 
 <style scoped lang="scss">
-.v-card{
+.v-card {
   background-color: $color-4;
 }
 </style>
