@@ -1,5 +1,6 @@
 <template>
   <div class="signin-container">
+    <LoadingApp v-if="loading" />
     <div class="d-flex align-center justify-center w-100">
       <v-card class="card-signIn-left" :elevation="0">
         <div class="logo-text">C</div>
@@ -34,10 +35,10 @@
               solo
               class="input-bg"
               prepend-inner-icon="mdi-key"
-              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="[rules.required, rules.min]"
-              :type="show1 ? 'text' : 'password'"
-              @click:append="show1 = !show1"
+              :type="showPassword ? 'text' : 'password'"
+              @click:append="showPassword = !showPassword"
             ></v-text-field>
           </div>
           <div class="btn-signin">
@@ -55,12 +56,12 @@
 export default {
   name: 'SignIn',
   layout: 'auth',
-  middleeware: 'isLoggedIn',
   data() {
     return {
       email: '',
       password: '',
-      show1: false,
+      loading: false,
+      showPassword: false,
       rules: {
         required: (value) => !!value || 'Required',
         min: (v) => v?.length >= 8 || 'Min 8 characters',
@@ -76,9 +77,10 @@ export default {
   methods: {
     async signIn() {
       const validateForm = this.$refs.formSignIn.validate()
-
       if (!validateForm) return
+
       try {
+        this.loading = true
         const data = await this.$fire.auth.signInWithEmailAndPassword(
           this.email,
           this.password
@@ -93,22 +95,35 @@ export default {
             phoneNumber: data.user.phoneNumber,
           }
 
-          this.$store
+          await this.$store
             .dispatch('onAuthStateChangedAction', {
               userProfile,
             })
             .then(() => {
-              this.$router.replace('/')
+              setTimeout(() => {
+                this.$router.replace('/')
+                this.loading = false
+              }, 1000)
             })
             .catch((error) => {
               console.log('User State error', error)
+              this.loading = false
+              this.showNotification('ERROR', 'error', 'Set store error!!')
             })
         }
       } catch (error) {
         console.log('Login error', error)
-        // this.snackbar = true;
-        // this.errorMessage = error.message;
+        this.loading = false
+        this.showNotification('ERROR', 'error', error.message)
       }
+    },
+
+    showNotification(titleNoti, typeNoti, textNoti) {
+      this.$notify({
+        title: titleNoti,
+        text: textNoti,
+        type: typeNoti,
+      })
     },
   },
 }

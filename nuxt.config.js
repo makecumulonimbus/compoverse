@@ -32,7 +32,7 @@ export default {
   css: ['@/assets/default.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [{ src: '~/plugins/vue-notification.js', mode: 'client' }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -87,10 +87,10 @@ export default {
           primary: '#40b388',
           accent: '#1e1f33',
           secondary: '#6f7e91',
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: '#f1552e',
-          success: colors.green.accent3,
+          // info: colors.teal.lighten1,
+          // warning: colors.amber.base,
+          error: '#ff4646',
+          success: '#40b388',
         },
       },
     },

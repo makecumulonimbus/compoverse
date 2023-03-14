@@ -1,7 +1,8 @@
 <template>
-  <v-app >
+  <v-app>
     <v-main class="bg-auth">
       <v-container class="pa-0">
+        <notifications position="top right" classes="notification-container" />
         <Nuxt />
       </v-container>
     </v-main>
@@ -18,10 +19,4 @@ export default {
 .bg-auth {
   background-color: $color-4;
 }
-/* .bg-auth{
-    background-image: url(/background/bg-signin.svg);
-    height: 100%;
-    width: 100%;
-    background-repeat: repeat;
-} */
 </style>

@@ -66,6 +66,7 @@
     </v-app-bar>
     <v-main>
       <v-container>
+        <notifications position="top right" classes="notification-container" />
         <Nuxt />
       </v-container>
     </v-main>
@@ -110,7 +111,6 @@ export default {
   methods: {
     async signOut() {
       if (this.$fire.auth.currentUser !== null) {
-        console.log(this.$fire.auth.currentUser)
         try {
           await this.$fire.auth.signOut().then(() => {
             this.$router.replace('/signin')
@@ -118,6 +118,8 @@ export default {
         } catch (e) {
           console.log(e)
         }
+      } else {
+        this.$router.replace('/signin')
       }
     },
   },
