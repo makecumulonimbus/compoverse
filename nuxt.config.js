@@ -59,7 +59,14 @@ export default {
           appId: '1:28855858205:web:841ada8c9dd0492fc582f4',
         },
         services: {
-          auth: true, // Just as example. Can be any other service.\
+          auth: {
+            persistence: 'local', // default
+            initialize: {
+              onAuthStateChangedAction: 'onAuthStateChangedAction',
+              subscribeManually: false,
+            },
+            ssr: true,
+          },
           firestore: true,
         },
       },

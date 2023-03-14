@@ -17,7 +17,7 @@
         <div>
           <img src="logo.png" width="200" class="img-logo" />
         </div>
-        <form @submit.prevent="signIn" ref="form">
+        <v-form @submit.prevent="signIn" ref="formSignIn" class="form-signin">
           <div class="input-signin">
             <v-text-field
               placeholder="Email"
@@ -45,15 +45,13 @@
               >SIGN IN</v-btn
             >
           </div>
-        </form>
+        </v-form>
       </v-card>
     </div>
   </div>
 </template>
 
 <script>
-const pattern =
-  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 export default {
   name: 'SignIn',
   layout: 'auth',
@@ -67,6 +65,8 @@ export default {
         required: (value) => !!value || 'Required',
         min: (v) => v?.length >= 8 || 'Min 8 characters',
         email: (value) => {
+          const pattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           return pattern.test(value) || 'Invalid e-mail'
         },
       },
@@ -75,9 +75,9 @@ export default {
 
   methods: {
     async signIn() {
-      if (this.email === '' || !pattern.test(this.email)) return
-      if (this.password === '' || this.password.length < 8) return
+      const validateForm = this.$refs.formSignIn.validate()
 
+      if (!validateForm) return
       try {
         const data = await this.$fire.auth.signInWithEmailAndPassword(
           this.email,
@@ -92,11 +92,22 @@ export default {
             displayName: data.user.displayName,
             phoneNumber: data.user.phoneNumber,
           }
-          console.log(userProfile)
-          this.$router.push('/')
+
+          this.$store
+            .dispatch('onAuthStateChangedAction', {
+              userProfile,
+            })
+            .then(() => {
+              this.$router.replace('/')
+            })
+            .catch((error) => {
+              console.log('User State error', error)
+            })
         }
-      } catch (e) {
-        console.log(e)
+      } catch (error) {
+        console.log('Login error', error)
+        // this.snackbar = true;
+        // this.errorMessage = error.message;
       }
     },
   },
@@ -152,6 +163,10 @@ export default {
       font-weight: 600;
     }
   }
+}
+
+.form-signin {
+  width: 100%;
 }
 .input-signin {
   width: 100%;
