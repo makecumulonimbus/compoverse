@@ -1,6 +1,5 @@
 <template>
   <div class="signin-container">
-    <!-- <LoadingApp v-if="!loading" /> -->
     <div class="d-flex align-center justify-center w-100">
       <v-card class="card-signIn-left" :elevation="0">
         <div class="logo-text">C</div>
@@ -97,8 +96,11 @@ export default {
   },
 
   mounted() {
-    if (this.$store.state.rememberEmail !== '') {
-      this.email = this.$store.state.rememberEmail
+    if (
+      localStorage.getItem('rememberEmail') &&
+      localStorage.getItem('rememberEmail') !== ''
+    ) {
+      this.email = localStorage.getItem('rememberEmail')
       this.remember = true
     }
   },
@@ -111,9 +113,9 @@ export default {
       try {
         this.loading = true
         if (this.remember) {
-          this.$store.dispatch('rememberMe', this.email)
+          localStorage.setItem('rememberEmail', this.email)
         } else {
-          this.$store.dispatch('rememberMe', '')
+          localStorage.setItem('rememberEmail', '')
         }
 
         const data = await this.$fire.auth.signInWithEmailAndPassword(
