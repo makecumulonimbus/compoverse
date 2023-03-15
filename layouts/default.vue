@@ -61,7 +61,7 @@
       </v-menu>
     </v-app-bar>
     <v-main>
-      <v-container>
+      <v-container fluid>
         <notifications position="top right" classes="notification-container" />
         <Nuxt />
       </v-container>
@@ -77,6 +77,19 @@ import {
   mdiSkipNext,
   mdiChevronRight,
   mdiChevronLeft,
+  mdiLogin,
+  mdiFormatFloatLeft,
+  mdiToggleSwitch,
+  mdiCheckboxMarkedOutline,
+  mdiFilePresentationBox,
+  mdiFormTextbox,
+  mdiReload,
+  mdiSquareRoundedBadgeOutline,
+  mdiFormatText,
+  mdiTable,
+  mdiAlert,
+  mdiMapLegend,
+  mdiPageLayoutFooter,
 } from '@mdi/js'
 export default {
   name: 'DefaultLayout',
@@ -88,6 +101,19 @@ export default {
       mdiSkipNext,
       mdiChevronRight,
       mdiChevronLeft,
+      mdiLogin,
+      mdiFormatFloatLeft,
+      mdiToggleSwitch,
+      mdiCheckboxMarkedOutline,
+      mdiFilePresentationBox,
+      mdiFormTextbox,
+      mdiReload,
+      mdiSquareRoundedBadgeOutline,
+      mdiFormatText,
+      mdiTable,
+      mdiAlert,
+      mdiMapLegend,
+      mdiPageLayoutFooter,
       userProfile: {},
       clipped: false,
       drawer: true,
@@ -112,6 +138,71 @@ export default {
           icon: mdiSkipNext,
           title: 'Paginations',
           to: '/paginations',
+        },
+        {
+          icon: mdiLogin,
+          title: 'Logins',
+          to: '/logins',
+        },
+        {
+          icon: mdiFormatFloatLeft,
+          title: 'Forms',
+          to: '/forms',
+        },
+        {
+          icon: mdiToggleSwitch,
+          title: 'Switchs',
+          to: '/switchs',
+        },
+        {
+          icon: mdiCheckboxMarkedOutline,
+          title: 'Checkboxs',
+          to: '/checkboxs',
+        },
+        {
+          icon: mdiFilePresentationBox,
+          title: 'Modals',
+          to: '/modals',
+        },
+        {
+          icon: mdiFormTextbox,
+          title: 'Inputs',
+          to: '/inputs',
+        },
+        {
+          icon: mdiReload,
+          title: 'Loaders',
+          to: '/loaders',
+        },
+        {
+          icon: mdiSquareRoundedBadgeOutline,
+          title: 'Badges',
+          to: '/badges',
+        },
+        {
+          icon: mdiFormatText,
+          title: 'Texts',
+          to: '/texts',
+        },
+        {
+          icon: mdiTable,
+          title: 'Tables',
+          to: '/tables',
+        },
+        {
+          icon: mdiAlert,
+          title: 'Alerts',
+          to: '/alerts',
+        },
+        {
+          icon: mdiMapLegend,
+          title: 'Navigations',
+          to: '/navigations',
+        },
+        {
+          icon: mdiPageLayoutFooter,
+          title: 'Footers',
+          to: '/footers',
         },
       ],
       miniVariant: true,
