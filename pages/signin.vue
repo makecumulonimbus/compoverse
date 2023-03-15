@@ -132,6 +132,8 @@ export default {
             phoneNumber: data.user.phoneNumber,
           }
 
+          localStorage.setItem('userProfile', JSON.stringify(userProfile))
+
           await this.$store
             .dispatch('onAuthStateChangedAction', {
               userProfile,

@@ -35,10 +35,7 @@
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on">
             <v-avatar size="36px">
-              <v-img
-                alt="Avatar"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa0mY04NeynM9jLwuxyuvaqyjfwHeBJkPsEwxUO-junn3ptTn8MyFPeTVpa5sppoAu758&usqp=CAU"
-              ></v-img>
+              <v-img alt="Avatar" :src="userProfile.photoURL"></v-img>
             </v-avatar>
           </v-btn>
         </template>
@@ -46,18 +43,15 @@
           <v-card-text>
             <div class="mx-auto text-center">
               <v-avatar>
-                <v-img
-                  alt="Avatar"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa0mY04NeynM9jLwuxyuvaqyjfwHeBJkPsEwxUO-junn3ptTn8MyFPeTVpa5sppoAu758&usqp=CAU"
-                ></v-img>
+                <v-img alt="Avatar" :src="userProfile.photoURL"></v-img>
               </v-avatar>
-              <h3 class="pt-3">Nuttapong.y</h3>
-              <p class="text-caption mt-1">Caption.</p>
+              <h3 class="pt-3">{{ userProfile.displayName }}</h3>
+              <p class="text-caption mt-1 mb-0">{{ userProfile.email }}</p>
+              <p class="text-caption mt-1 mb-0">
+                {{ userProfile.phoneNumber }}
+              </p>
               <v-divider class="my-2"></v-divider>
-              <v-btn depressed rounded text small @click="editProfile()">
-                Edit Account
-              </v-btn>
-              <v-divider class="my-2"></v-divider>
+
               <v-btn depressed rounded text small @click="signOut()">
                 SIGN OUT
               </v-btn>
@@ -68,10 +62,6 @@
     </v-app-bar>
     <v-main>
       <v-container>
-        <ProfileDialog
-          :showDialog="showProfileDialog"
-          @closeDialog="showProfileDialog = false"
-        />
         <notifications position="top right" classes="notification-container" />
         <Nuxt />
       </v-container>
@@ -98,6 +88,7 @@ export default {
       mdiSkipNext,
       mdiChevronRight,
       mdiChevronLeft,
+      userProfile: {},
       clipped: false,
       drawer: true,
       fixed: false,
@@ -129,11 +120,21 @@ export default {
     }
   },
 
-  methods: {
-    editProfile() {
-      this.showProfileDialog = true
-    },
+  mounted() {
+    const userStorage = JSON.parse(localStorage.getItem('userProfile'))
+    this.userProfile = {
+      displayName: userStorage.displayName
+        ? userStorage.displayName
+        : userStorage.email.split('@')[0],
+      email: userStorage.email,
+      phoneNumber: userStorage.phoneNumber,
+      photoURL: userStorage.photoURL
+        ? userStorage.photoURL
+        : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa0mY04NeynM9jLwuxyuvaqyjfwHeBJkPsEwxUO-junn3ptTn8MyFPeTVpa5sppoAu758&usqp=CAU',
+    }
+  },
 
+  methods: {
     async signOut() {
       if (this.$fire.auth.currentUser !== null) {
         try {
