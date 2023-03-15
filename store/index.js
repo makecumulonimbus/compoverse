@@ -13,21 +13,33 @@ const actions = {
       })
     }
   },
+
+  rememberMe(state, email) {
+    state.commit('SET_REMEMBER_EMAIL', email)
+  },
 }
 
 const mutations = {
   SET_USER(state, user) {
     state.user = user
   },
+
+  SET_REMEMBER_EMAIL(state, email) {
+    state.rememberEmail = email
+  },
 }
 
 const state = () => ({
   user: null,
+  rememberEmail: '',
 })
 
 const getters = {
   getUser(state) {
     return state.user
+  },
+  getRemember(state) {
+    return state.email
   },
   isLoggedIn(state) {
     let userLoggedIn = false

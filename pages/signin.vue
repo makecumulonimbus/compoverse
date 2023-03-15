@@ -1,6 +1,6 @@
 <template>
   <div class="signin-container">
-    <LoadingApp v-if="loading" />
+    <!-- <LoadingApp v-if="!loading" /> -->
     <div class="d-flex align-center justify-center w-100">
       <v-card class="card-signIn-left" :elevation="0">
         <div class="logo-text">C</div>
@@ -26,7 +26,7 @@
               type="email"
               class="input-bg"
               v-model="email"
-              prepend-inner-icon="mdi-email"
+              :prepend-inner-icon="mdiEmail"
               :rules="[rules.required, rules.email]"
             ></v-text-field>
             <v-text-field
@@ -34,15 +34,31 @@
               placeholder="Password"
               solo
               class="input-bg"
-              prepend-inner-icon="mdi-key"
-              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              :prepend-inner-icon="mdiKey"
+              :append-icon="showPassword ? mdiEye : mdiEyeOff"
               :rules="[rules.required, rules.min]"
               :type="showPassword ? 'text' : 'password'"
               @click:append="showPassword = !showPassword"
             ></v-text-field>
           </div>
+
+          <v-checkbox
+            class="mt-0 pt-0 remember-input"
+            v-model="remember"
+            hide-details
+            label="Remember me"
+            color="primary"
+            :class="remember ? 'checked' : ''"
+          ></v-checkbox>
+
           <div class="btn-signin">
-            <v-btn type="submit" large color="#40b388" dark rounded
+            <v-btn
+              type="submit"
+              large
+              color="#40b388"
+              dark
+              rounded
+              :loading="loading"
               >SIGN IN</v-btn
             >
           </div>
@@ -53,15 +69,21 @@
 </template>
 
 <script>
+import { mdiEmail, mdiKey, mdiEye, mdiEyeOff } from '@mdi/js'
 export default {
   name: 'SignIn',
   layout: 'auth',
   data() {
     return {
+      mdiEmail,
+      mdiKey,
+      mdiEye,
+      mdiEyeOff,
       email: '',
       password: '',
       loading: false,
       showPassword: false,
+      remember: false,
       rules: {
         required: (value) => !!value || 'Required',
         min: (v) => v?.length >= 8 || 'Min 8 characters',
@@ -74,6 +96,13 @@ export default {
     }
   },
 
+  mounted() {
+    if (this.$store.state.rememberEmail !== '') {
+      this.email = this.$store.state.rememberEmail
+      this.remember = true
+    }
+  },
+
   methods: {
     async signIn() {
       const validateForm = this.$refs.formSignIn.validate()
@@ -81,6 +110,12 @@ export default {
 
       try {
         this.loading = true
+        if (this.remember) {
+          this.$store.dispatch('rememberMe', this.email)
+        } else {
+          this.$store.dispatch('rememberMe', '')
+        }
+
         const data = await this.$fire.auth.signInWithEmailAndPassword(
           this.email,
           this.password
@@ -171,6 +206,7 @@ export default {
   max-width: 200px;
   margin: 0 auto;
   padding-bottom: 20px;
+  padding-top: 20px;
   button {
     width: 100%;
     span {
@@ -189,10 +225,10 @@ export default {
 ::v-deep div.input-signin div.v-input__slot {
   background: $color-5 !important;
 }
-button::before,
-i::before {
-  color: white;
-}
+// button::before,
+// i::before {
+//   color: white;
+// }
 
 .logo-text {
   font-weight: 600;
@@ -238,5 +274,21 @@ i::before {
   100% {
     transform: rotate(359deg);
   }
+}
+.remember-input .v-label {
+  color: $color-1 !important;
+  font-size: 14px;
+}
+.remember-input .v-icon {
+  color: $color-1 !important;
+  opacity: 0.6;
+}
+.remember-input.checked .v-icon {
+  color: $color-2 !important;
+  opacity: 1;
+}
+
+.input-signin .v-icon svg {
+  color: white;
 }
 </style>

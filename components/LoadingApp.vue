@@ -44,6 +44,7 @@ export default {
   animation: up 1.5s cubic-bezier(0, 0, 0.24, 1.21) infinite;
   left: 50%;
   background: var(--first-block-clr);
+  border-radius: 4px;
 }
 
 .spinner::after {

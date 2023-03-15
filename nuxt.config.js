@@ -80,6 +80,11 @@ export default {
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    treeShaking: true,
+    defaultAssets: false,
+    icons: {
+      iconfont: 'mdiSvg',
+    },
     theme: {
       dark: true,
       themes: {
@@ -87,8 +92,8 @@ export default {
           primary: '#40b388',
           accent: '#1e1f33',
           secondary: '#6f7e91',
-          // info: colors.teal.lighten1,
-          // warning: colors.amber.base,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
           error: '#ff4646',
           success: '#40b388',
         },
