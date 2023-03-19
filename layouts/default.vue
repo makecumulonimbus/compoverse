@@ -7,29 +7,30 @@
       fixed
       app
     >
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+      <perfect-scrollbar>
+        <v-list>
+          <v-list-item
+            v-for="(item, i) in items"
+            :key="i"
+            :to="item.to"
+            router
+            exact
+          >
+            <v-list-item-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </perfect-scrollbar>
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>{{ miniVariant ? mdiChevronRight : mdiChevronLeft }}</v-icon>
       </v-btn>
-
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <v-toolbar-title class="bold">{{ title }}</v-toolbar-title>
       <v-spacer />
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
@@ -88,7 +89,9 @@ import {
   mdiFormatText,
   mdiTable,
   mdiAlert,
-  mdiMapLegend,
+  mdiMenu,
+  mdiImageArea,
+  mdiPageLayoutHeader,
   mdiPageLayoutFooter,
 } from '@mdi/js'
 export default {
@@ -112,7 +115,9 @@ export default {
       mdiFormatText,
       mdiTable,
       mdiAlert,
-      mdiMapLegend,
+      mdiMenu,
+      mdiImageArea,
+      mdiPageLayoutHeader,
       mdiPageLayoutFooter,
       userProfile: {},
       clipped: false,
@@ -195,9 +200,19 @@ export default {
           to: '/alerts',
         },
         {
-          icon: mdiMapLegend,
+          icon: mdiMenu,
           title: 'Navigations',
           to: '/navigations',
+        },
+        {
+          icon: mdiImageArea,
+          title: 'Images',
+          to: '/images',
+        },
+        {
+          icon: mdiPageLayoutHeader,
+          title: 'Headers',
+          to: '/headers',
         },
         {
           icon: mdiPageLayoutFooter,
@@ -246,5 +261,8 @@ export default {
 <style scoped lang="scss">
 .v-card {
   background-color: $color-4;
+}
+.ps {
+  height: 100vh;
 }
 </style>
