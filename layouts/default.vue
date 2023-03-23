@@ -265,4 +265,7 @@ export default {
 .ps {
   height: 100vh;
 }
+.v-toolbar__title {
+  padding-left: 0px !important;
+}
 </style>

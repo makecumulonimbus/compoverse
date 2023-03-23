@@ -1,10 +1,11 @@
 <template>
-  <div class="text">home</div>
+  <div class="home-page">
+    <v-card class="pa-2">menu navigation</v-card>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'IndexPage',
-  // middleeware: 'auth',
 }
 </script>
