@@ -30,11 +30,11 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>{{ miniVariant ? mdiChevronRight : mdiChevronLeft }}</v-icon>
       </v-btn>
-      <v-toolbar-title class="bold">{{ title }}</v-toolbar-title>
+      <v-toolbar-title class="nav-title">{{ title }}</v-toolbar-title>
       <v-spacer />
       <v-menu offset-y>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on">
+        <template v-slot:activator="scope">
+          <v-btn icon v-bind="scope.attrs" v-on="scope.on">
             <v-avatar size="36px">
               <v-img alt="Avatar" :src="userProfile.photoURL"></v-img>
             </v-avatar>
@@ -259,6 +259,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.nav-title {
+  text-transform: uppercase;
+}
 .v-card {
   background-color: $color-4;
 }

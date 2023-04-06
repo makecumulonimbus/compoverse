@@ -2,16 +2,16 @@
   <div class="page-container page-buttoms">
     <v-row>
       <v-col cols="12" sm="6" md="4" lg="3">
-        <ButtonHoverBroder />
+        <ButtonPaper />
       </v-col>
       <v-col cols="12" sm="6" md="4" lg="3">
-        <ButtonBackgroundSlide />
+        <ButtonNeon />
       </v-col>
       <v-col cols="12" sm="6" md="4" lg="3">
-        <ButtonShineEffect />
+        <ButtonRainbowBorder />
       </v-col>
       <v-col cols="12" sm="6" md="4" lg="3">
-        <ButtonClickStyle />
+        <ButtonAnalog />
       </v-col>
     </v-row>
   </div>

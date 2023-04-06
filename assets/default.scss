@@ -78,3 +78,20 @@ body {
     border-left-color: $color-2 !important;
   }
 }
+
+.title-name {
+  font-size: 14px;
+  padding-left: 4px;
+  padding-top: 4px;
+}
+.button-container-space {
+  position: relative;
+  border: 1px solid #dadada;
+  border-radius: 8px;
+  height: 175px;
+  display: grid;
+  place-items: center;
+}
+.bg-dark {
+  background-color: #212121;
+}
